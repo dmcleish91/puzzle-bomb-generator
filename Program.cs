@@ -1,10 +1,12 @@
 ﻿using puzzle_bomb_generator;
 
-List<Wire> wires = new List<Wire>();
-Random rand = new Random();
-for (int i = 0; i < 5; i++)
+int seed = 42;
+Console.WriteLine($"Seed is {seed}");
+
+PuzzleManager puzzleManager = new(seed);
+puzzleManager.GeneratePuzzle(DifficultyLevel.Hard);
+
+foreach (var wire in puzzleManager.Wires)
 {
-    Wire wire = Wire.GenerateRandomWire(rand, i, i);
     Console.WriteLine(wire);
-    wires.Add(wire);
 }

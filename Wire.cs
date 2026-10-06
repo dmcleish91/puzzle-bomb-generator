@@ -13,6 +13,7 @@ public enum WireColor
     Blue,
     Green,
     Yellow,
+    Orange,
     Black,
     White
 }
@@ -24,19 +25,13 @@ internal class Wire(int startPosition, int endPosition, WireColor color, WireSty
     public WireStyle Style { get; } = style;
     public List<int> CrossedWires { get; } = [];
 
-    public static Wire GenerateRandomWire(Random random, int startPosition, int endPosition)
-    {
-        WireColor[] colors = Enum.GetValues<WireColor>();
-        WireStyle[] styles = Enum.GetValues<WireStyle>();
-
-        WireColor color = colors[random.Next(colors.Length)];
-        WireStyle style = styles[random.Next(styles.Length)];
-        return new Wire(startPosition, endPosition, color, style);
-    }
-
     public override string ToString()
     {
-        return $"Wire {StartPosition + 1}: Start={StartPosition}, End={EndPosition}, Color={Color}, Style={Style}";
+        string crosses = CrossedWires.Count == 0
+            ? "none"
+            : string.Join(", ", CrossedWires.Select(position => $"Wire {position + 1}"));
+
+        return $"Wire {StartPosition + 1}: Start={StartPosition}, End={EndPosition}, Color={Color}, Style={Style}, Crosses={crosses}";
     }
 
 }
